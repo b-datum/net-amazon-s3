@@ -12,23 +12,23 @@ has 'method' => ( is => 'ro', isa => 'HTTPMethod', required => 1 );
 __PACKAGE__->meta->make_immutable;
 
 sub http_request {
-    my $self = shift;
+  my $self = shift;
 
-    return Net::Amazon::S3::HTTPRequest->new(
-        s3     => $self->s3,
-        method => $self->method,
-        path   => $self->_uri( $self->key ),
-    )->http_request;
+  return Net::Amazon::S3::HTTPRequest->new(
+    s3     => $self->s3,
+    method => $self->method,
+    path   => $self->_uri( $self->key ),
+  )->http_request;
 }
 
 sub query_string_authentication_uri {
-    my ( $self, $expires ) = @_;
+  my ( $self, $expires, $content_disposition ) = @_;
 
-    return Net::Amazon::S3::HTTPRequest->new(
-        s3     => $self->s3,
-        method => $self->method,
-        path   => $self->_uri( $self->key ),
-    )->query_string_authentication_uri($expires);
+  return Net::Amazon::S3::HTTPRequest->new(
+    s3     => $self->s3,
+    method => $self->method,
+    path   => $self->_uri( $self->key )
+  )->query_string_authentication_uri( $expires, $content_disposition );
 }
 
 1;

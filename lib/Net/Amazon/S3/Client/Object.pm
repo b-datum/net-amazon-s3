@@ -291,7 +291,7 @@ sub query_string_authentication_uri {
         bucket => $self->bucket->name,
         key    => $self->key,
         method => 'GET',
-    )->query_string_authentication_uri( $self->expires->epoch );
+    )->query_string_authentication_uri( $self->expires->epoch, $self->content_disposition );
 }
 
 sub _content_sub {
